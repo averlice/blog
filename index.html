@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>adison verlice bolog</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style>
+        body {
+            font-family: 'Segoe UI', Arial, sans-serif;
+            background: #faf7f2;
+            color: #222;
+            max-width: 700px;
+            margin: 2.5rem auto;
+            padding: 2rem;
+            border-radius: 1.2rem;
+            box-shadow: 0 4px 24px rgba(34,34,59,0.08);
+        }
+        h1 {
+            font-size: 2.5rem;
+            text-align: left;
+            margin-bottom: 0.2em;
+            letter-spacing: -1px;
+        }
+        .subtitle {
+            color: #a77;
+            font-size: 1.1rem;
+            font-style: italic;
+            margin-bottom: 2.2rem;
+        }
+        #file-list {
+            margin-top: 2.5rem;
+            padding: 1.3rem 1.5rem;
+            background: #fff7ee;
+            border-radius: 0.8rem;
+            box-shadow: 0 1px 8px rgba(160,140,80,.07);
+        }
+        #file-list h2 {
+            font-size: 1.2rem;
+            color: #a77;
+            margin-bottom: 0.6em;
+        }
+        #file-list ul {
+            list-style: none;
+            padding-left: 0;
+        }
+        #file-list li {
+            margin-bottom: 0.5em;
+        }
+        #file-list a {
+            color: #4a4e69;
+            text-decoration: underline;
+            font-size: 1.04rem;
+        }
+        #file-list a:hover {
+            color: #d72660;
+        }
+        @media (max-width: 620px) {
+            body { padding: 1rem; }
+            h1 { font-size: 2rem; }
+        }
+    </style>
+</head>
+<body>
+    <h1>adison verlice bolog</h1>
+    <div class="subtitle">
+        welcome to adison verlices blog. here, i will post anything and everything, from...well, anything i want. lol.
+    </div>
+
+    <div id="file-list">
+        <h2>available pages</h2>
+        <ul id="index-list">
+            <li>Loading…</li>
+        </ul>
+    </div>
+
+    <script>
+    // Simple index: list all files in the current directory (GitHub Pages, must be static)
+    // This JS attempts to fetch the directory listing using GitHub's API if served from GitHub Pages
+
+    async function fetchFileList() {
+        const user = location.host.split('.')[0];
+        const repo = location.pathname.split('/')[1];
+        // heuristic for /user.github.io/repo/ or /repo/
+        let apiUrl = '';
+        if (user && repo) {
+            apiUrl = `https://api.github.com/repos/${user}/${repo}/contents/`;
+        } else {
+            // fallback: try to guess repo name from URL path
+            apiUrl = `https://api.github.com/repos/${user}/${user}.github.io/contents/`;
+        }
+
+        try {
+            const res = await fetch(apiUrl);
+            if (!res.ok) throw new Error('no index');
+            const files = await res.json();
+            const ul = document.getElementById('index-list');
+            ul.innerHTML = '';
+            files.forEach(file => {
+                // Only show HTML/MD files, skip .gitignore and folders
+                if (file.type === "file" && /\.(html?|md)$/i.test(file.name) && file.name !== '404.html') {
+                    const li = document.createElement('li');
+                    const a = document.createElement('a');
+                    a.href = file.name;
+                    a.textContent = file.name;
+                    li.appendChild(a);
+                    ul.appendChild(li);
+                }
+            });
+            if (!ul.children.length) {
+                ul.innerHTML = '<li>No pages found.</li>';
+            }
+        } catch (e) {
+            document.getElementById('index-list').innerHTML = `<li>Page index unavailable.</li>`;
+        }
+    }
+
+    fetchFileList();
+    </script>
+</body>
+</html>
