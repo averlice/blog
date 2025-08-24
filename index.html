@@ -50,6 +50,7 @@
             color: #4a4e69;
             text-decoration: underline;
             font-size: 1.04rem;
+            word-break: break-all;
         }
         #file-list a:hover {
             color: #d72660;
@@ -74,34 +75,35 @@
     </div>
 
     <script>
-    // Simple index: list all files in the current directory (GitHub Pages, must be static)
-    // This JS attempts to fetch the directory listing using GitHub's API if served from GitHub Pages
+    // Index files from https://github.com/averlice/blog, excluding index.html and 404.html
+    const githubUser = "averlice";
+    const githubRepo = "blog";
+    const branch = "main";
+    const githubApiUrl = `https://api.github.com/repos/${githubUser}/${githubRepo}/contents/`;
+    const githubPagesBase = `https://${githubUser}.github.io/${githubRepo}/`;
 
     async function fetchFileList() {
-        const user = location.host.split('.')[0];
-        const repo = location.pathname.split('/')[1];
-        // heuristic for /user.github.io/repo/ or /repo/
-        let apiUrl = '';
-        if (user && repo) {
-            apiUrl = `https://api.github.com/repos/${user}/${repo}/contents/`;
-        } else {
-            // fallback: try to guess repo name from URL path
-            apiUrl = `https://api.github.com/repos/${user}/${user}.github.io/contents/`;
-        }
-
         try {
-            const res = await fetch(apiUrl);
+            const res = await fetch(githubApiUrl);
             if (!res.ok) throw new Error('no index');
             const files = await res.json();
             const ul = document.getElementById('index-list');
             ul.innerHTML = '';
             files.forEach(file => {
-                // Only show HTML/MD files, skip .gitignore and folders
-                if (file.type === "file" && /\.(html?|md)$/i.test(file.name) && file.name !== '404.html') {
+                // Only show HTML/MD files, skip index.html, 404.html, and folders
+                if (
+                    file.type === "file" &&
+                    /\.(html?|md)$/i.test(file.name) &&
+                    file.name !== '404.html' &&
+                    file.name !== 'index.html'
+                ) {
                     const li = document.createElement('li');
                     const a = document.createElement('a');
-                    a.href = file.name;
+                    // link to GitHub Pages URL for the file
+                    a.href = githubPagesBase + encodeURIComponent(file.name);
                     a.textContent = file.name;
+                    a.target = "_blank";
+                    a.rel = "noopener";
                     li.appendChild(a);
                     ul.appendChild(li);
                 }
