@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Speech API Experiment</title>
+  <style>
+    body { background: #fff; font-family: Arial, sans-serif; max-width: 600px; margin: 80px auto; padding: 40px; }
+    h1 { font-size: 2em; margin-bottom: 0.5em; }
+    button { margin-bottom: 2em; padding: 0.5em 1em; font-size: 1em; }
+    p { margin: 1em 0; }
+    a { color: #1155cc; text-decoration: underline; }
+  </style>
+</head>
+<body>
+  <!-- Listen to this page button before the page content -->
+  <button id="listenBtn">🔊 Listen to this page</button>
+
+  <h1>Welcome</h1>
+  <p>This is a test to query the speech web API.</p>
+  <p>This is not a blog, but a test to see if your browser can query this with the play button you see on your screen.</p>
+  <p>If this works, great!</p>
+  <p>
+    If not, contact
+    <a href="mailto:averlicetech@proton.me">averlicetech@proton.me</a>
+    to see what can be done about this issue.
+  </p>
+  <p>I am genuinely interested on how this plays out, so you can listen to posts now.</p>
+
+  <script>
+    document.getElementById('listenBtn').addEventListener('click', function() {
+      // Gather all text content from the page (excluding the button)
+      var content = '';
+      document.querySelectorAll('h1, p').forEach(function(el) {
+        content += el.innerText + ' ';
+      });
+
+      // Check for browser SpeechSynthesis support
+      if ('speechSynthesis' in window) {
+        var utterance = new window.SpeechSynthesisUtterance(content);
+        utterance.lang = 'en-US';
+        window.speechSynthesis.cancel(); // Stop any current speech
+        window.speechSynthesis.speak(utterance);
+      } else {
+        alert('Sorry, your browser does not support the Speech API.');
+      }
+    });
+  </script>
+</body>
+</html>
