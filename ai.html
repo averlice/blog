@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>my thoughts on AI chatbot safety</title>
+  <style type="text/css">
+    @import url(https://themes.googleusercontent.com/fonts/css?kit=2dF9lOPF8G7FDl_saYMgiTrBxCHSeOtpyCSBRNSJPcdbV0WvE1cEyAoIq5yYZlSc);
+    ol{margin:0;padding:0}
+    table td,table th{padding:0}
+    .c4{background-color:#ffffff;color:#000000;font-weight:400;text-decoration:none;vertical-align:baseline;font-size:13pt;font-family:"Arial";font-style:normal}
+    .c14{color:#000000;font-weight:400;text-decoration:none;vertical-align:baseline;font-size:12pt;font-family:"Lexend";font-style:normal}
+    .c0{color:#000000;font-weight:400;text-decoration:none;vertical-align:baseline;font-size:11pt;font-family:"Arial";font-style:normal}
+    .c2{color:#000000;font-weight:700;text-decoration:none;vertical-align:baseline;font-size:11pt;font-family:"Arial";font-style:normal}
+    .c15{padding-top:12pt;padding-bottom:4pt;line-height:1.15;page-break-after:avoid;orphans:2;widows:2;text-align:left}
+    .c9{color:#000000;font-weight:400;text-decoration:none;vertical-align:baseline;font-size:20pt;font-family:"Arial";font-style:normal}
+    .c3{color:#666666;font-weight:400;text-decoration:none;vertical-align:baseline;font-size:11pt;font-family:"Arial";font-style:italic}
+    .c7{padding-top:20pt;padding-bottom:6pt;line-height:1.15;page-break-after:avoid;orphans:2;widows:2;text-align:left}
+    .c1{padding-top:0pt;padding-bottom:0pt;line-height:1.15;orphans:2;widows:2;text-align:left}
+    .c13{font-size:38.5pt;font-family:"Playfair Display";font-style:italic;color:#273043}
+    .c6{text-decoration-skip-ink:none;-webkit-text-decoration-skip:none;color:#1155cc;text-decoration:underline}
+    .c12{background-color:#ffffff;max-width:468pt;padding:72pt 72pt 72pt 72pt}
+    .c8{color:inherit;text-decoration:inherit}
+    .c10{background-color:#ffffff;font-size:13pt}
+    .c5{height:11pt}
+    .c11{font-weight:700}
+    .title{padding-top:0pt;color:#000000;font-size:26pt;padding-bottom:3pt;font-family:"Arial";line-height:1.15;page-break-after:avoid;orphans:2;widows:2;text-align:left}
+    .subtitle{padding-top:0pt;color:#666666;font-size:15pt;padding-bottom:16pt;font-family:"Arial";line-height:1.15;page-break-after:avoid;orphans:2;widows:2;text-align:left}
+    li{color:#000000;font-size:11pt;font-family:"Arial"}
+    p{margin:0;color:#000000;font-size:11pt;font-family:"Arial"}
+    h1{padding-top:20pt;color:#000000;font-size:20pt;padding-bottom:6pt;font-family:"Arial";line-height:1.15;page-break-after:avoid;orphans:2;widows:2;text-align:left}
+    h2{padding-top:18pt;color:#000000;font-size:16pt;padding-bottom:6pt;font-family:"Arial";line-height:1.15;page-break-after:avoid;orphans:2;widows:2;text-align:left}
+    h3{padding-top:16pt;color:#434343;font-size:14pt;padding-bottom:4pt;font-family:"Arial";line-height:1.15;page-break-after:avoid;orphans:2;widows:2;text-align:left}
+    h4{padding-top:14pt;color:#666666;font-size:12pt;padding-bottom:4pt;font-family:"Arial";line-height:1.15;page-break-after:avoid;orphans:2;widows:2;text-align:left}
+    h5{padding-top:12pt;color:#666666;font-size:11pt;padding-bottom:4pt;font-family:"Arial";line-height:1.15;page-break-after:avoid;orphans:2;widows:2;text-align:left}
+    h6{padding-top:12pt;color:#666666;font-size:11pt;padding-bottom:4pt;font-family:"Arial";line-height:1.15;page-break-after:avoid;font-style:italic;orphans:2;widows:2;text-align:left}
+    #listen-btn { margin-bottom: 1em; padding: 0.4em 1.2em; font-size: 1em; cursor: pointer; }
+  </style>
+</head>
+<body class="c12 doc-content">
+  <h1 class="title">my thoughts on AI chatbot safety</h1>
+  <button id="listen-btn">Listen to this page</button>
+  <script>
+    document.getElementById('listen-btn').onclick = function () {
+      if ('speechSynthesis' in window) {
+        const textToRead = document.body.innerText;
+        const utterance = new window.SpeechSynthesisUtterance(textToRead);
+        window.speechSynthesis.cancel(); // Stop any ongoing
+        window.speechSynthesis.speak(utterance);
+      } else {
+        alert('Sorry, your browser does not support speech synthesis.');
+      }
+    };
+  </script>
+  <h1 class="c7" id="h.cvmi261esogz"><span class="c9">Oy, here he is goin again, talkin about AI</span></h1>
+  <p class="c1"><span class="c0">Hey dood, I can&#39;t help it. I have noticed several things about AI and I wanted to address one of them.</span></p>
+  <p class="c1"><span class="c0">What we are going to address is the safety of AI chatbots.</span></p>
+  <h1 class="c7" id="h.t7we8pz0b6ao"><span class="c9">The introduction</span></h1>
+  <p class="c1"><span class="c0">There have recently been updates on some cases where a child has died at the hands of AI.</span></p>
+  <p class="c1"><span>You can watch </span><span class="c6"><a class="c8" href="https://www.youtube.com/watch?v=eLyu6OGA5UM" target="_blank" rel="noopener">this hearing by Chairman Josh Holly</a></span><span class="c0">&nbsp;for more information. </span></p>
+  <p class="c1"><span>If you prefer to not use youtube, you can also watch it </span><span class="c6"><a class="c8" href="https://www.judiciary.senate.gov/committee-activity/hearings/examining-the-harm-of-ai-chatbots" target="_blank" rel="noopener">&nbsp;here</a></span></p>
+  <p class="c1"><span>The title of the video is &ldquo;</span><span class="c11 c13">Examining the Harm of AI Chatbots</span><span>&ldquo;</span></p>
+  <p class="c1"><span class="c0">There are some points of argument for and against this I wanted to discuss.</span></p>
+  <h1 class="c7" id="h.whbyuv2xemoo"><span class="c9">Very real concerns</span></h1>
+  <p class="c1"><span>Quite unfortunately, companies are well known to take safety not so seriously, and &nbsp;</span><span class="c11">only</span><span class="c0">&nbsp;do so when the law requires it.</span></p>
+  <p class="c1"><span class="c0">Holly does make a good point when he says their reasoning is purely profit, it is.</span></p>
+  <p class="c1"><span>Quoting from holly himself: &ldquo;</span><span class="c14">and for one reason only, I can state it in one word, profit.&rdquo;</span></p>
+  <p class="c1"><span class="c14">Starts at 1min 18sec and ends at 1min and 21sec.</span></p>
+  <p class="c1"><span class="c14">There is no doubt about that.</span></p>
+  <h1 class="c7" id="h.lwlz92yanvyh"><span class="c9">Chatbots can be directed to harm users</span></h1>
+  <p class="c1"><span class="c0">Yes, it is very possible. This is especially possible when proper filtering is not implemented, which is often the case for several platforms like character AI and chatbot.</span></p>
+  <p class="c1"><span>Also, just so you know, character AI, and especially chatGPT, do not have end to end encryption. This means they </span><span class="c2">can and do see your chat messages.</span></p>
+  <p class="c1"><span class="c2">So it&rsquo;s not like they don&rsquo;t have knowledge of this.</span></p>
+  <p class="c1"><span class="c11">They </span><span>absolutely</span><span class="c2">&nbsp;do.</span></p>
+  <p class="c1"><span class="c2">And there are ways to combat this.</span></p>
+  <p class="c1"><span class="c2">Here is an example.</span></p>
+  <p class="c1"><span class="c11">On platforms on discord, there is a function in servers known as </span><span class="c6 c11"><a class="c8" href="https://support.discord.com/hc/en-us/articles/4421269296535-AutoMod-FAQ" target="_blank" rel="noopener">automod</a></span><span class="c2">&nbsp;that filters messages based on word patterns. For example, in my discord server, if you say, for instance, the n word, you will be locked.</span></p>
+  <p class="c1"><span class="c2">And I can see every filtered message coming in the discord.</span></p>
+  <p class="c1"><span class="c2">I don&rsquo;t see why we can&rsquo;t have automod for AI chatbots, even outside of discord.</span></p>
+  <p class="c1"><span class="c2">It seems like the most effective way to filter this would be to have the message be passed to an external filtering software first, then if blocked, report a blocked message.</span></p>
+  <p class="c1"><span class="c2">For character AI, their model relies on filtering during the message transmission process.</span></p>
+  <p class="c1"><span class="c2">This is not good, because it allows unfiltered content to still get through, even if it knows it has to be filtered. And by the way, even when it is filtered, the remainder of the message is still seeable, the part before the filtering banner.</span></p>
+  <p class="c1"><span class="c2">So if the bad parts, the no no, parts didn&rsquo;t get filtered in time and it was just the messages that come after, there is still a pretty large issue there.</span></p>
+  <h1 class="c7" id="h.xrcev6j4e1kk"><span class="c9">openAIs idiotic response</span></h1>
+  <p class="c1"><span class="c0">I want you to read this, and I want you to read it very carefully.</span></p>
+  <p class="c1"><span>&ldquo;</span><span class="c4">When we detect users who are planning to harm others, we route their conversations to specialized pipelines where they are reviewed by a small team trained on our usage policies and who are authorized to take action, including banning accounts. If human reviewers determine that a case involves an imminent threat of serious physical harm to others, we may refer it to law enforcement. We are currently not referring self-harm cases to law enforcement to respect people&rsquo;s privacy given the uniquely private nature of ChatGPT interactions.&rdquo;</span></p>
+  <p class="c1"><span class="c4">Do you notice something?</span></p>
+  <p class="c1"><span class="c4">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;They say they will, not, report self harm cases to law enforcement.</span></p>
+  <p class="c1"><span class="c4">And what do you mean by private nature? Let me say this again. chatGPT, nor its cohorts (microsoft copilot, github copilot) is not end-to -end encrypted.</span></p>
+  <p class="c1"><span class="c4">openAI can absolutely see everything coming in and out of its systems.</span></p>
+  <p class="c1"><span class="c4">They have no right to claim the private nature of the chats.</span></p>
+  <p class="c1"><span class="c4">If it was end to end encrypted, it would have a reason to not send reports: it can&rsquo;t see the data.</span></p>
+  <p class="c1"><span class="c4">But it has no reason.</span></p>
+  <p class="c1"><span class="c4">Here&rsquo;s what the AI should do.</span></p>
+  <p class="c1"><span class="c4">Admittedly, sometimes, character AI will do this too.</span></p>
+  <p class="c1"><span class="c10">It should absolutely instead of trying to be a friend, it should tell the user it cannot assist with this, and give them the </span><span class="c6 c10"><a class="c8" href="https://988lifeline.org" target="_blank" rel="noopener">national mental health hotline</a></span><span class="c4">&nbsp;the number is 988.</span></p>
+  <p class="c1"><span class="c4">That should be the end of the chat itself, then it should automatically be relayed to law enforcement who can then assist.</span></p>
+  <p class="c1 c5"><span class="c4"></span></p>
+  <p class="c1"><span class="c4">These teens are desperate in these times, and need actual human support and comfort, not some random AI chatbot who&rsquo;s going to tell them to kill themselves.</span></p>
+  <p class="c1 c5"><span class="c4"></span></p>
+  <p class="c1"><span class="c4">openAI&rsquo;s response is garbage, and this needs to be addressed ASAP.</span></p>
+  <h1 class="c7" id="h.uxwzmq18r7vu"><span class="c9">What i don&rsquo;t agree with</span></h1>
+  <p class="c1"><span class="c0">I don&rsquo;t agree with the fact that AI is not obvious.</span></p>
+  <p class="c1"><span class="c0">During the context of videos, this is understandable. Not everyone puts warnings in their videos, so this can be hard to differentiate.</span></p>
+  <p class="c1"><span class="c0">But in a chatbot context, it isn&rsquo;t, and let me tell you why.</span></p>
+  <p class="c1"><span class="c0">Well first, let me give some context.</span></p>
+  <p class="c1"><span class="c0">I am quoting Mitch Prinstein &nbsp;from the video:</span></p>
+  <p class="c1"><span class="c0">&ldquo;AI is often invisible. We often don&rsquo;t know when we&rsquo;re interacting with AI, especially because many chatbots are built to deceive us into believing that they are human.&rdquo;</span></p>
+  <p class="c1"><span class="c0">Quote starts at 31mins and 17sec, ends at 31mins 27sec.</span></p>
+  <p class="c1"><span class="c0">This is partially wrong.</span></p>
+  <p class="c1"><span class="c0">First off, when an app is downloaded, such as character AI and chatGPT, you should know exactly what you&rsquo;re getting into. It literally tells you it&rsquo;s an AI.</span></p>
+  <p class="c1"><span class="c0">This is especially the case with character AI.</span></p>
+  <p class="c1"><span class="c0">In fact, c.ai &nbsp;literally tells you at the footer i believe it is: &ldquo;this is AI and not a real person. Treat everything it says as fiction&rdquo;.</span></p>
+  <p class="c1"><span class="c0">Just to let you know, I am not justifying AI&rsquo;s actions here, I think what the character AI did was wrong.</span></p>
+  <p class="c1"><span class="c0">But I&#39;m pointing out that it&#39;s not rocket science to know that it&rsquo;s AI.</span></p>
+  <p class="c1"><span class="c0">It is easy to tell, and anyone with a working brain is able to tell this.</span></p>
+  <h1 class="c7" id="h.dpcgce4tv2n"><span class="c9">Parental monitoring tools</span></h1>
+  <p class="c1"><span class="c0">I want to clarify that Jane Doh is not her real name, this is similar to John Doh, which is a sudinim in order to protect her identity.</span></p>
+  <p class="c1"><span class="c0">But, Jane Doh said this.</span></p>
+  <p class="c1"><span class="c0">&ldquo;We had screen time limits put up, we had parental controls and he didn&rsquo;t even have social media.&rdquo;</span></p>
+  <p class="c1"><span class="c0">Quote starts at &nbsp; 7mins 25sec, ends at 7mins 31sec.</span></p>
+  <p class="c1"><span class="c0">My next point will be furthermore clear in this quote.</span></p>
+  <p class="c1"><span class="c0">&ldquo;We had every precaution setup for our kids, and he still got passed it&rdquo;</span></p>
+  <p class="c1"><span class="c0">Starts at 38mins and 15sec and ends at 38mins and 20sec</span></p>
+  <p class="c1"><span class="c0">Here is the problem with parental applications.</span></p>
+  <p class="c1"><span class="c0">We&rsquo;re not gonna get too technical here, but parental apps require an application to run. And they are very likely to cancel out. For example, google family link, bark, or any other parental solution is easy to cancel out.</span></p>
+  <p class="c1"><span>Let me know &nbsp;if you want a more in depth explanation by emailing me at </span><span class="c6"><a class="c8" href="mailto:averlicetech@proton.me">averlicetech@proton.me</a></span><span class="c0">.</span></p>
+  <h1 class="c7" id="h.cpkgcfh1zkgp"><span class="c9">And here, you have these, online safety acts, that are advertising &ldquo;protect the kids&rdquo;.</span></h1>
+  <p class="c1"><span>The major problem with the </span><span class="c6"><a class="c8" href="https://www.blumenthal.senate.gov/about/issues/kids-online-safety-act#:~:text=What%20the%20Kids%20Online%20Safety,turn%20on%20as%20families%20choose." target="_blank" rel="noopener">kids online safety act (KOSA)</a></span><span class="c0">&nbsp;and others of this kind is that they seem to only require age verification.</span></p>
+  <p class="c1"><span class="c0">Age verification does not guarantee the safety of the platform.</span></p>
+  <p class="c1"><span class="c0">For example, I could make you verify your age to read my blog, then expose you to whatever I want in the process.</span></p>
+  <p class="c1"><span class="c0">However, I will agree that we need more than just COPPA (children&#39;s online privacy protection act) for what we have now.</span></p>
+  <p class="c1"><span class="c0">For example, I should present an idea of mine. Any company/online platform should **not** require or even consider asking miners to sign arbitration agreements because often, they don&rsquo;t know what they&rsquo;re getting into.</span></p>
+  <p class="c1"><span class="c0">Matters like these should go to an actual courthouse so the company or companies involved can be held liable.</span></p>
+  <p class="c1"><span class="c0">I also agree that miners should not have their data sold.</span></p>
+  <p class="c1"><span>In fact, if you are working within Europe, you must work within the </span><span class="c6"><a class="c8" href="https://gdpr-info.eu/art-8-gdpr/" target="_blank" rel="noopener">general data protection regulation (GDPR)</a></span><span class="c0">&nbsp;and I guarantee you that if you violate this regulation in Europe, they will not exactly be happy with you. Just look at meta, they&rsquo;re quite a frequent flyer in the illegal processing of data space.</span></p>
+  <p class="c1"><span>This is more than even the </span><span class="c6"><a class="c8" href="http://studentprivacy.ed.gov/ferpa" target="_blank" rel="noopener">family educational rights and privacy act (FERPA)</a></span><span class="c0">&nbsp;will provide.</span></p>
+  <h1 class="c7" id="h.bal21hj010os"><span class="c9">conclusion</span></h1>
+  <p class="c1 c5"><span class="c0"></span></p>
+  <p class="c1"><span class="c0">Ultimately, I do think there needs to be more regulation around AI child safety.</span></p>
+  <h6 class="c15" id="h.ocejt5dn5v1d"><span class="c3">That being said,</span></h6>
+  <p class="c1"><span>My heart goes out to the families who have suffered from the harm of their children to AI chatbots, and I hope you will be able to get your justice.</span></p>
+</body>
+</html>
