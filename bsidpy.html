@@ -1,0 +1,65 @@
+<title>why i don't push cloudflare workers aggressively + BSID-py.</title>
+<p> most of you know that i, adison verlice, have pushed documentation on how to run the more modern version of blindsoft image describer.
+if you haven't read it yet, you can read it <a href="https://blindsoft.net/blog/bsid.html">here</a>.
+now cloudflare workers is truly a piece of work, but there are several reasons why i keep support going for blindsoft image describer python (veescribe). now first, i will show you how easy it is to setup compared to BSID-js, and why i don't think we're ready for cloudflare workers.
+</p>
+<h1>setting up the more simple python bot</h1>
+please make sure you have git installed. you're also gonna need python, preferably the latest. on my own windows computer, i have python running from the Microsoft store.
+for OCR, you will also need tesseract-OCR. on windows, for example, you can get it by using winget in a powershell administrator session.
+<code>winget install -e --id UB-Mannheim.TesseractOCR</code>
+once you have that, we can now get started.
+<h1>setup instructions</h1>
+<ol><li>clone the repository.</li>
+<code>git clone https://github.com/averlice/blindsoft-image-describer.git</code>
+<li>cd into the folder.</li>
+<code>cd blindsoft-image-describer</code>
+<li>install requirements</li><code>pip install -r requirements.txt</code>
+<li>change .envexample to .env and paste your discord bot token, owner IDs (separated by commas with no spaces) and gemini API key.</li>
+<li>run main.py</li><code>python main.py</code></ol>
+congratulations, your bot is now running! go pop the champagne, go tell your friends you did something with your life while on the couch, or go tell someone on the internet you're better than them just because you deployed a python bot using commands some tutorial told you to run or something.
+!
+<h1>why am i not ready to cut off support for BSID-PY/VeeScribe?</h1>
+<p>there are a few reasons why i can't just tell you to cut off the python bot and get the new workers bot.</p>
+<ol><li>complex.</li><p>in a traditional bot environment like the python bot, all you need is a bot token, at least 1 owner ID, and the most important part, the gemini API key. it is a very lightweight bot that weighs, at most, around 400kb on a good day.
+now take the JS version and you have public keys for ED25519, application ID, interaction endpoint URLs, account IDs, and then you have a mess all around!
+it is not a simple bot by any means; it requires a lot of API work behind the code, and because it's a V8 isolate, it is especially tricky because cloudflare has a lot of restrictions that go with the runtime.</p>
+<p>not to mention, with the cloudflare worker, 1 thing goes wrong, it's done! and it will hammer you with logs until you hammer it with a fix! you have to go back to the dashboard, check the debug logs (if you enabled them), and then find out what in the name of pizza went wrong. and that doesn't go very well for a beginning developer.</p>
+<li>don't want slash commands</li>
+<p>there are some people who legitimately do not want slash commands. they want to enter a prefix, like the default one alii, or on the public version, v! and cloudflare workers just can't do that for the mere fact that BSID-js is basically in its own small prison cell. they are completely serverless, meaning they have no operating system and they use serverless functions, just completely serverless. yes, this gives it an edge that the execution time will be little, if anything at all, in milliseconds, but it's not always listening. cloudflare workers actually requires you to wake it up with the /ping or /describe command, and then as soon as it's awake, it goes straight back to sleep.
+the python bot can stay up and online as long as the hosting client, whether it be a laptop or a VPS server, is running.
+</p>
+<li>more owner control</li>
+<p> in the python version, it debugs and logs everything. therefore, you can (if you're a bot owner) pull error and console logs from a single discord command. you can't do that with cloudflare workers. the most you can do is see who made a change. and once again, that's an edge, but you can't debug errors and error handling, at least not yet. i am working on this.</p>
+<li>cloudflare workers downtime</li>
+<p> cloudflare, admittedly, has a pattern of stupidity. they do a bad configuration, no one knows how to fix it, and then everything hits the fan! the cloudflare global edge goes offline! the worker doesn't work. an actual VPS is your only option in that case and a local deployment is the only thing that can do that for you!</p>
+</ol> i could go on and on, but i'm not going to.
+<h1> how did BSID-JS even come to be?</h1> it's simple. <strong>operation cool off my PC!</strong>.       
+yes, i deployed a more than just fairly complex bot on cloudflare workers, and went through the trouble, not because i was developing for an enterprise company like vispero or some other blindness company, it wasn't for a university competition, it was strictly because my PC was getting hot.
+yes, that's the number 1 reason.
+i was hosting the bot on my PC day by day on a computer with 512GB of SSD storage, 16GB of DDR5, and an intel I5 processor. would you believe it?
+it was a computer known as the miniPC, which is a PC the size of a cellphone or even a credit card.       
+so i got with my friend stu hughes from <a href="https://seedy.cc">seediffusion</a> and we ran another bot on the VPS.
+then there's this whole debate on slash commands that, admittedly, i started, because i wanted to know who felt comfortable with it and who didn't.
+and while i was testing an implementation with them on the python bot, it didn't work out, and also i didn't want to host on my computer.
+so as part of operation cool off my PC, i decided to go the "god elite developer" route, and set up a cloudflare worker.
+it took some time, but we got it up and running.
+and then it came, the slash command lovers got their slash commands!
+and that basically became the successor to the python version (somewhat).
+no, support is not going away for the python version, not at all. veescribe will continue to receive support.
+<h1>buBuBuBuBuBuBuBut adison, you could've just gotten the oracle cloud free tier subscription. why didn't you just do that Mr. too hot PC?</h1>
+simple, some of my good friends got rejected when they tried to sign up for the OCI free tier. it sounds great, but nope. also, it has an ARM processor which you can't even control and set up things like ARM trustzone, or any ARM modules.
+most linux servers run on either X86 or X64.
+so i don't care!
+<h1>am i saying cloudflare workers is bad?</h1>
+not at all. in fact, i think it's great that i can give you (the selfhoster) code to deploy on an enterprise-grade architecture. don't get me wrong, it's awesome. plus it's blazing fast! but i just don't think we're at a place where this can expect widespread adoption.
+do i want this to succeed? sure, absolutely! but right now, even with newer AI coding bots, i don't think we'll be able to make it there because it is too complex. even my collaborators at galaxy4productions, stu hughes and alex chapman, 2 of the most technically inclined people i know, will no longer touch a cloudflare worker. they've tried it, it doesn't work for them.
+in fact, i had to ask alex "am i even allowed to keep this worker?" because he's kinda one of the owners and does a lot of the billing stuff, and he said <strong>i</strong> can keep the worker, luckily, as long as we don't incur any expensive charges.
+but just the mere fact 2 of the most technically inclined people i know won't touch a cloudflare worker tells you just how hard it is to work.
+which means, in a way, i am the only person at g4p who has ever gotten a production cloudflare worker, well, working!
+<h1>should i use the python bot or the JS bot?</h1>
+this is something i have had to tell people.
+if you have a VPS or a dedicated machine and you need ease of deployment, get the python version, absolutely. especially if you don't want to do too much work. but if you're willing to experience headaches with autoupdate and deployment, but need that 24/7 enterprise-grade hosting, go with bsid-js. i would really love to say, "you can go with BSID-js, it's super duper easy," but the reality is CF workers only works for the few who know what they are doing.
+<h1>contact information</h1>
+<a href="https://discord.gg/YGf2Jn3Jue">support server</a>
+<a href="mailto:averlicetech@proton.me">adison verlice email</a>
+discord: notasusybaka
