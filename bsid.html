@@ -1,0 +1,62 @@
+<title>how to setup blindsoft image describer (selfhosted) using cloudflare workers.</title>
+<p> in this tutorial, we will be setting up the blindsoft image describer on cloudflare workers. strap in, it's gonna be a fun ride!</p>
+<h1>requirements</h1>
+you will need a few things before we can get this party started.
+<ol><li>a cloudflare account: you will need a cloudflare account (free is fine) for this to work. if you do not ahve one, you can create one <a href="https://dash.cloudflare.com">here</a></li>
+<li>discord developer credentials</li> you will need to get discord credentials. this includes: bot token, application ID, and application public key. you can get creds for discord on the <a href="https://discord.com/developers/applications">discord developer portal</a>
+<li>gemini API key</li>you must have a gemini API key, which is used to send images over to the gemini API. you can get one <a href="https://aistudio.google.com">here</a>
+<li>cloudflare account ID and API token</li>this is used to parse audit logs for the /logs command. to get this, go to your account, manage account, API tokens, and create one. 
+<strong>permissions required:</strong>
+<ul>
+<li>Account > Audit Logs > Read</li>
+<li>Account > Worker Scripts > Edit (for auto-deployment)</li>
+</ul>
+note: under permission scope, select your specific account.
+<li>bot owner IDs</li>the bot requires you have at least 1 bot owner ID. to get these, open discord user settings > advanced > developer mode and toggle it on. then, you can copy in any ID of the user you right-click on. note: owner IDs are separated by a comma with no space.</ol>
+<h1> deployment: let's go!</h1>
+login to the cloudflare dashboard and select your account. note: if you have access to another account in which you want to deploy, you can also select that account, granted you have permissions to change and setup workers.
+<ol><li>go to add a worker and select "import from GitHub".</li>
+<li>if it asks for it, follow the instructions to setup a git integration using GitHub.</li>
+<li> copy the repository URL when it asks for the GitHub repository you want to deploy: <a href="https://github.com/averlice/bsid-js">https://github.com/averlice/bsid-js</a>.</li>
+<li>follow the instructions, give it a name (name it whatever you want).</li><li> it will ask you for your bot token, your gemini API key, cloudflare credentials, application ID, public key, and owner IDs. take those credentials you got and paist them into the fields that follow.</li>
+<li><strong>Smart Placement:</strong> Note that this bot is optimized for Cloudflare's Smart Placement mode to keep it snappy!</li><li>click that big beautiful deploy button!</li>
+<li>look for the deployment url that cloudflare will give you. it will be workername.account.workers.dev and in the discord developer portal, in your applications general information, paist it in as an interaction endpoints URL.</li></ol>
+<p>wahay, it should now be working! yay!
+now, go pop the champagne, go tell your parents, whatever you want!</p>
+<h1>automatic updates (the cool part)</h1>
+<p>the bot now supports automatic updates via GitHub Actions. this means every time you push code, it updates itself like magic.
+<ol><li>go to your GitHub repository, then go to **Settings** -> **Secrets and variables** -> **Actions**.</li>
+<li>add the following repository secrets:</li>
+<ul>
+<li>DISCORD_TOKEN</li>
+<li>DISCORD_APPLICATION_ID</li>
+<li>DISCORD_PUBLIC_KEY</li>
+<li>GEMINI_API_KEY</li>
+<li>OWNER_IDS</li>
+<li>CLOUDFLARE_ACCOUNT_ID</li>
+<li>CLOUDFLARE_API_TOKEN</li>
+</ul>
+</ol>
+<p>your bot should now be up to date and stay that way!</p>
+<h1>how do i play with the bot?</h1>
+to play with the bot and add features on your own, do the following. we will assume you have git installed.
+<ol><li>clone your repository.</li><code>git clone https://github.com/yourgithubusername/yourrepositoryname.git</code>
+<li>gt into your repository.</li><code>cd yourdirectory</code>
+<li>play with your bot like it's 2077!</li>
+<li>to deploy manually, run this command:</li><code>npm run deploy</code></ol>
+yay! it's running.
+<h1>a quick note about offline status</h1>
+<p>in most cases, discord will show it as offline. this is primarily because cloudflare workers is an "online when woken" bot, meaning it only comes online when it is told to. in most cases, you can just run /ping on the bot, and if it shows latency along with detailed node information and Ray IDs, you are in the clear. if it responds with either "the application did not respond" or "the application didn't respond in time", that usually indicates there is a problem.
+<h1>commands included</h1>
+<ul>
+<li>/gemini - Chat with Gemini 3 Flash.</li>
+<li>/describe - Detailed image description for accessibility.</li>
+<li>/ocr - Extract text from images exactly as it appears.</li>
+<li>/ping - Check latency, Ray IDs, and Cloudflare diagnostic info.</li>
+<li>/logs - (Owner Only) View recent Cloudflare audit logs directly in Discord.</li>
+<li>/say - (Owner Only) Send plaintext.</li>
+<li>/esay - (Owner Only) Send JSON-formatted embeds.</li>
+</ul>
+<p>note: our support discord server is located <a href="https://discord.gg/YGf2Jn3Jue">here</a> where you can find updates like outages, etc.</p>
+<h1>questions, comments, or concerns?</h1>
+<a href="mailto:averlicetech@proton.me">email adison verlice</a> or contact him on discord at notasusybaka. alternatively you can also go to the support channel in the blindsoft enterprises server.
