@@ -1,0 +1,51 @@
+<title>benefits of BSID-JS (the "hard" version)</title>
+<p> in <a href="https://blindsoft.net/blog/bsidpy.html">my last post</a> i showed you how to setup the python version of the bot, and reasons you shouldn't use the BSID-JS.
+regardless, you won't believe it, but some did actually go down the rabbet hole of setting BSID-JS on cloudflare workers.</p>
+<p> keep in mind, this is a hard thing to do even with the UI automated setup. regardless, i do have to acknowledge if you manage to get this behemoth of an administrative nightmare setup, there are some MASSIVE benefits to setting up the JS version on cloudflare workers, as this thing was meant for.</p>
+<h1>so, what are the benefits of getting bsid-js setup?</h1>
+<ol>
+<li><strong>Slash Commands & Diagnostics</strong></li>
+if you want your own selfhosted slash command setup, this is your goto. it has slash commands like /ping, and its ping command is a bit louder than bsid-py. it tells you exactly the worker execution time, gateway latency, the exact cloudflare colo datacenter, and even the Ray ID. it's nerding out, but useful nerding out.
+
+<li><strong>24/7 Serverless Hosting (For Free!)</strong></li>
+cloudflare will keep your bot online almost all the time, even when you shut off your computer. i actually made bsid-js just because of this—operation cool off my PC. and it won't just keep it online, it'll keep it in several (i think it's over 300) data center locations across the globe.
+Plus, Cloudflare's free tier gives you 100,000 requests per day. unless you are running a mega-server, you will likely never pay a dime. compare that to your electricity bill for running a python bot 24/7.
+
+<li><strong>Smart Placement (Speed!)</strong></li>
+the worker will automatically be on cloudflare smart placement mode. this means cloudflare analyzes where your bot is talking to (Discord's API, Gemini's API) and automatically moves your bot's execution to a server physically closer to those APIs to cut down latency. it's literally faster than your home internet.
+
+<li><strong>More Security for Secrets</strong></li>
+cloudflare workers secrets API stores secrets a lot more securely than the typical .env file on your desktop. cloudflare takes your secrets and encrypts them at rest.
+because they are encrypted at rest, you won't have to worry about a hacker getting into your dashboard and simply reading your sensitive API keys, public key, and discord bot token.
+
+<li><strong>Auto Update (Set and Forget)</strong></li>
+provided you can use GitHub actions to store your secrets, the JS version now has a fully automated update function. every time i push an update to the code (new features, bug fixes), your bot can automatically rebuild and deploy itself. no more "git pull" and restarting scripts manually.
+
+<li><strong>User Install & Context Menus</strong></li>
+imagine having your own user application that you install on your discord account (not just a server). you can right-click any image anywhere on discord, go to **Apps**, and click **Describe Image**.
+Wala! a description is provided within your session instantly. no need to invite the bot to that server, no need to copy-paste image links. it just works, everywhere you go.
+
+<li><strong>OCR & Admin Tools</strong></li>
+unlike the python version, this one now supports /ocr to extract text directly from images (great for reading screenshots). it also has a super-secret (owner only) /logs command that lets you audit your cloudflare account logs directly from discord. you feel like a hacker just running it.
+</ol>
+
+<h1>bububububububububut waight, can't ali images already do that for me?</h1>
+yes, it can.
+it absolutely can. it has userinstall, it has secure secrets. the only thing the public bot does not have is auto updates because devs version (public bot) is controlled by the dev (me) which means it is updated by the dev himself (me).
+i don't need auto update.
+the only problem outside of my control is if the bot gets verified, and then the bot will have heavy load on the discord API. if this is not what you want, you should learn to <a href="https://blindsoft.net/blog/bsid.html">host your own version</a>.
+
+<h1>what do i even get out of hosting either on my own? i can just use the public version!</h1>
+regardless of which you host, the one big thing you get is image descriptions for your community. i, as a blind person, created this for the blind community to use and build upon.
+of course, there are other benefits. for example, when you use the dev version of the bot, you are relying on my API keys, like gemini, and hoping i don't have shit happen on my google account, therefor, terminating my account. you're also gambling i don't look through public bot images, image hashes, descriptions, and so on.
+when you host your own, you have to use your own gemini API key. this means that i can't see your API queries.
+that also means the only persons credentials you're gambling is your own. unless, that is, cloudflare, discord, or gemini does something stupid, you likely don't have to worry. and you definitely don't have to worry about the public bot going rogue because i left an API key public somewhere.
+
+the last benefit i can go on about is the fact that, well, your bot is distributed between 300 colo datacenters across the globe. who doesn't want that? very hard to do a DDOS attack on cloudflare.
+
+<h1>so let's say i'm a sucker for pain and nightmares of Mr. Tux coming to take my soul. how do i host the bot?</h1>
+you can see instructions on how to set it up <a href="https://blindsoft.net/blog/bsid.html">here</a> for more information on how to setup the bot. good luck, soldier.
+
+<h1>adison verlice</h1> this has been adison verlice, signing off.
+<a href="https://blindsoft.net">return to site</a>
+<a href="mailto:averlicetech@proton.me">email me here</a>
